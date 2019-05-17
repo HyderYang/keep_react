@@ -1,6 +1,32 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PriceList from './components/PriceList'
+
+const items = [
+    {
+        id: 1,
+        title: "成都旅游",
+        price: 200,
+        date: "2019-05-01",
+        category: {
+            id: 1,
+            name: "旅行",
+            type: "outcome"
+        }
+    },
+    {
+        id: 2,
+        title: "成都补助",
+        price: 50,
+        date: "2019-05-01",
+        category: {
+            id: 1,
+            name: "旅行",
+            type: "income"
+        }
+    }
+];
 
 function App() {
   return (
@@ -19,6 +45,15 @@ function App() {
           Learn React
         </a>
       </header>
+        <PriceList
+            items={items}
+            onModifyItem={(item) => {
+                alert(item.id)
+            } }
+            onDeleteItem={(item) => {
+                alert(item.id)
+            } }
+        />
     </div>
   );
 }
