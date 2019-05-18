@@ -1,9 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {LIST_VIEW, CHART_VIEW} from './config/ constant'
 import PriceList from './components/PriceList'
 import ViewTab from './components/ViewTab'
-import {LIST_VIEW, CHART_VIEW} from './config/ constant'
+import MonthPicker from './components/MonthPicker'
 
 const items = [
   {
@@ -49,12 +50,16 @@ function App() {
           Learn React
         </a>
       </header>
-      <ViewTab
-        activeTab={LIST_VIEW}
-        onTabChange={(view) => {
-            console.log(view)
-        } }
+      <MonthPicker
+        year={2018}
+        month={5}
       />
+      {/*<ViewTab*/}
+      {/*  activeTab={LIST_VIEW}*/}
+      {/*  onTabChange={(view) => {*/}
+      {/*      console.log(view)*/}
+      {/*  } }*/}
+      {/*/>*/}
       {/*<PriceList*/}
       {/*  items={items}*/}
       {/*  onModifyItem={(item) => {*/}
