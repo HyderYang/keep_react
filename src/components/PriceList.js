@@ -1,4 +1,5 @@
 import React from 'react'
+import Ionicon from 'react-ionicons'
 
 export default ( {items, onModifyItem, onDeleteItem} ) => {
     return (
@@ -9,7 +10,13 @@ export default ( {items, onModifyItem, onDeleteItem} ) => {
                     justify-content-between align-item-center"
                     >
                         <span className="col-1 badge badge-primary">
-                            {item.category.name}
+                            {/*{item.category.name}*/}
+                            <Ionicon className="rounded-circle"
+                                     fontSize="30px"
+                                     style={{backgroundColor: "#007bff", padding: "5px"}}
+                                     color='#fff'
+                                     icon={item.category.iconName}
+                            />
                         </span>
                         <span className="col-5">
                             {item.title}
@@ -21,21 +28,30 @@ export default ( {items, onModifyItem, onDeleteItem} ) => {
                         <span className="col-2">
                             {item.date}
                         </span>
-                        <button className="col-1 btn btn-primary"
+                        <a className="col-1"
                                 onClick={() => {
                                     onModifyItem(item)
                                 } }
                         >
-                            编辑
-                        </button>
-                        &nbsp;&nbsp;
-                        <button className="col-1 btn btn-danger"
+                            <Ionicon className="rounded-circle"
+                                     fontSize="30px"
+                                     style={{backgroundColor: "#28a745", padding: "5px"}}
+                                     color='#fff'
+                                     icon='ios-create-outline'
+                            />
+                        </a>
+                        <a className="col-1"
                                 onClick={() => {
                                     onDeleteItem(item);
                                 } }
                         >
-                            删除
-                        </button>
+                            <Ionicon className="rounded-circle"
+                                     fontSize="30px"
+                                     style={{backgroundColor: "#007bff", padding: "5px"}}
+                                     color='#fff'
+                                     icon='ios-create-outline'
+                            />
+                        </a>
                     </li>
                 ))
             }
