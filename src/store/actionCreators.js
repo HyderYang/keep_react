@@ -3,6 +3,7 @@ import {
   INIT_LIST_ACTION,
   SUBMIT_TODO_ITEM_VALUE
 } from "./actionTypes";
+import Axios from "axios";
 
 export const getInputChangeAction = (value) => {
   return {
@@ -22,4 +23,16 @@ export const initListAction = (data) => {
     type: INIT_LIST_ACTION,
     data
   }
+};
+
+export const getTodoList = () => {
+    return (dispatch) => {
+        Axios.get('/test.json').then(
+          (res) => {
+            const data = res.data.list;
+            const action = initListAction(data);
+            dispatch(action);
+          }
+        )
+    };
 };
