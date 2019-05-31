@@ -1,11 +1,17 @@
 import React from 'react'
 import {Button, Card, Input, List} from "antd";
-import { DELETE_TODO_ITEM} from './store/actionTypes'
-import {getAddItemAction, getInputChangeAction} from './store/actionCreators';
+import Axios from "axios";
 
 import 'antd/dist/antd.css'
 
 import store from './store'
+import { DELETE_TODO_ITEM } from './store/actionTypes'
+import {
+  getAddItemAction,
+  getInputChangeAction,
+  initListAction,
+} from './store/actionCreators';
+
 
 export default class TodoList extends React.Component{
   constructor(props) {
@@ -34,6 +40,14 @@ export default class TodoList extends React.Component{
     };
     store.dispatch(action);
   };
+
+  componentDidMount() {
+    Axios.get('/test.json')
+      .then((res) => {
+        const data = res.data.list;
+        store.dispatch(initListAction(data));
+      })
+  }
 
   render() {
     return (
