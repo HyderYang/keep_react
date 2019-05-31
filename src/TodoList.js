@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button, Card, Input, List} from "antd";
+import {CHANGE_INPUT_VALUE, DELETE_TODO_ITEM, SUBMIT_TODO_ITEM_VALUE} from './store/actionTypes'
 
 import 'antd/dist/antd.css'
 
@@ -18,7 +19,7 @@ export default class TodoList extends React.Component{
 
   handleChange = (e) => {
     const action = {
-      type: 'change_input_value',
+      type: CHANGE_INPUT_VALUE,
       value: e.target.value
     };
     store.dispatch(action)
@@ -26,7 +27,16 @@ export default class TodoList extends React.Component{
 
   handleBtnClick = () => {
     const action = {
-      type: 'submit_todo_item_value'
+      type: SUBMIT_TODO_ITEM_VALUE
+    };
+    store.dispatch(action);
+  };
+
+  handleItemClick = (index) => {
+    console.log(index);
+    const action = {
+      type: DELETE_TODO_ITEM,
+      index
     };
     store.dispatch(action);
   };
@@ -50,9 +60,14 @@ export default class TodoList extends React.Component{
           style={{marginTop: 10, width: 300}}
           bordered
           dataSource = {this.state.list}
-          renderItem={item => (
-            <List.Item>{item}</List.Item>
-          )}
+          // renderItem=
+          renderItem={(item, index) => {
+            return <List.Item
+              onClick={this.handleItemClick.bind(this, index)}
+            >
+              {item}
+            </List.Item>
+          }}
         >
         </List>
       </Card>
