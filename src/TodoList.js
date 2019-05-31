@@ -5,7 +5,7 @@ import 'antd/dist/antd.css'
 
 import store from './store'
 import {DELETE_TODO_ITEM} from './store/actionTypes'
-import {getAddItemAction, getInputChangeAction, getTodoList,} from './store/actionCreators';
+import {getAddItemAction, getInputChangeAction, getInitList} from './store/actionCreators';
 
 
 export default class TodoList extends React.Component{
@@ -37,8 +37,7 @@ export default class TodoList extends React.Component{
   };
 
   componentDidMount() {
-    const action = getTodoList();
-    store.dispatch(action);
+    store.dispatch(getInitList());
   }
 
   render() {
