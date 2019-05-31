@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, Card, Input, List} from "antd";
-import {CHANGE_INPUT_VALUE, DELETE_TODO_ITEM, SUBMIT_TODO_ITEM_VALUE} from './store/actionTypes'
+import { DELETE_TODO_ITEM} from './store/actionTypes'
+import {getAddItemAction, getInputChangeAction} from './store/actionCreators';
 
 import 'antd/dist/antd.css'
 
@@ -18,18 +19,11 @@ export default class TodoList extends React.Component{
   };
 
   handleChange = (e) => {
-    const action = {
-      type: CHANGE_INPUT_VALUE,
-      value: e.target.value
-    };
-    store.dispatch(action)
+    store.dispatch(getInputChangeAction(e.target.value))
   };
 
   handleBtnClick = () => {
-    const action = {
-      type: SUBMIT_TODO_ITEM_VALUE
-    };
-    store.dispatch(action);
+    store.dispatch(getAddItemAction());
   };
 
   handleItemClick = (index) => {
