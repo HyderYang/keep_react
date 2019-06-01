@@ -1,75 +1,60 @@
 import React from 'react'
-import {Button, Card, Input, List} from "antd";
+import {connect} from 'react-redux'
 
-import 'antd/dist/antd.css'
-
-import store from './store'
-import {DELETE_TODO_ITEM} from './store/actionTypes'
-import {getAddItemAction, getInputChangeAction, getInitList} from './store/actionCreators';
-
-
-export default class TodoList extends React.Component{
+class TodoList extends React.Component{
   constructor(props) {
     super(props);
-    this.state = store.getState();
-    store.subscribe(this.handleStoreChange);
-  }
-
-  handleStoreChange = () => {
-    this.setState(store.getState());
-  };
-
-  handleChange = (e) => {
-    store.dispatch(getInputChangeAction(e.target.value))
-  };
-
-  handleBtnClick = () => {
-    store.dispatch(getAddItemAction());
-  };
-
-  handleItemClick = (index) => {
-    console.log(index);
-    const action = {
-      type: DELETE_TODO_ITEM,
-      index
-    };
-    store.dispatch(action);
-  };
-
-  componentDidMount() {
-    store.dispatch(getInitList());
   }
 
   render() {
     return (
-      <Card title={"TODOLIST"} style={{marginTop: 10, marginLeft: 10}}>
-        <Input
-          onChange={this.handleChange}
-          value={this.state.inputValue}
-          placeholder={"todoInfo"}
-          style={{width: '300px'}}
-        />
-        <Button
-          onClick={this.handleBtnClick}
-          type={"primary"}
-        >
-          提交
-        </Button>
-        <List
-          style={{marginTop: 10, width: 300}}
-          bordered
-          dataSource = {this.state.list}
-          // renderItem=
-          renderItem={(item, index) => {
-            return <List.Item
-              onClick={this.handleItemClick.bind(this, index)}
-            >
-              {item}
-            </List.Item>
-          }}
-        >
-        </List>
-      </Card>
+      <div>
+        <div>
+          <input type="text"
+                 value={this.props.inputValue}
+                 onChange={this.props.handleInputChangeValue}
+          />
+          <button onClick={this.props.handleSubmit}>提交</button>
+          <ul>
+            {
+              this.props.list.map((item, index) => {
+                return <li>
+                  {item}
+                </li>
+              })
+            }
+          </ul>
+        </div>
+      </div>
     );
   }
+
 }
+
+const mapStateToProps = (state) => {
+  return {
+    inputValue: state.inputValue,
+    list: state.list
+  }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+      handleInputChangeValue (e) {
+        const action = {
+          type: 'change_input_value',
+          value: e.target.value
+        };
+        dispatch(action)
+      },
+
+      handleSubmit () {
+        const action = {
+          type: 'submit_item'
+        };
+        dispatch(action)
+      }
+    }
+};
+
+// export default TodoList;
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
